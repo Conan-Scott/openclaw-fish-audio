@@ -1,0 +1,76 @@
+{
+  "id": "fish-audio",
+  "name": "Fish Audio Speech",
+  "description": "Fish Audio TTS speech provider for OpenClaw — voice cloning and text-to-speech with S2-Pro and S1 models",
+  "version": "1.0.0",
+  "contracts": {
+    "speechProviders": ["fish-audio"]
+  },
+  "uiHints": {
+    "apiKey": {
+      "label": "API Key",
+      "placeholder": "sk-...",
+      "sensitive": true,
+      "help": "Fish Audio API key from https://fish.audio/account/api"
+    },
+    "voiceId": {
+      "label": "Voice ID",
+      "placeholder": "8a2d42279389471993460b85340235c5",
+      "help": "Reference ID of the Fish Audio voice to use. Find via /voice list or fish.audio"
+    },
+    "model": {
+      "label": "Model",
+      "help": "TTS model: s2-pro (default, higher quality) or s1"
+    },
+    "latency": {
+      "label": "Latency",
+      "help": "Latency mode: normal (default), balanced, or low"
+    }
+  },
+  "configSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "apiKey": {
+        "type": "string",
+        "description": "Fish Audio API key"
+      },
+      "voiceId": {
+        "type": "string",
+        "description": "Reference ID of the voice to use"
+      },
+      "baseUrl": {
+        "type": "string",
+        "description": "Custom API base URL (default: https://api.fish.audio)"
+      },
+      "model": {
+        "type": "string",
+        "enum": ["s2-pro", "s1"],
+        "description": "TTS model (default: s2-pro)"
+      },
+      "latency": {
+        "type": "string",
+        "enum": ["normal", "balanced", "low"],
+        "description": "Latency mode (default: normal)"
+      },
+      "speed": {
+        "type": "number",
+        "minimum": 0.5,
+        "maximum": 2.0,
+        "description": "Prosody speed (default: 1.0)"
+      },
+      "temperature": {
+        "type": "number",
+        "minimum": 0,
+        "maximum": 1,
+        "description": "Sampling temperature"
+      },
+      "topP": {
+        "type": "number",
+        "minimum": 0,
+        "maximum": 1,
+        "description": "Top-p sampling"
+      }
+    }
+  }
+}

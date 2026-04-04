@@ -1,0 +1,9 @@
+# Tests
+*.test.ts
+test-api.ts
+
+# Dev files
+.gitignore
+.DS_Store
+node_modules/
+*.tsbuildinfo
