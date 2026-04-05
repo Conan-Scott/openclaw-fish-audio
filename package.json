@@ -1,13 +1,13 @@
 {
   "name": "@conan-scott/openclaw-fish-audio",
   "version": "1.0.0",
-  "description": "Fish Audio TTS speech provider plugin for OpenClaw — high-quality voice cloning and text-to-speech",
+  "description": "Fish Audio TTS plugin for OpenClaw — voice cloning, Telegram voice replies, and high-quality text-to-speech",
   "type": "module",
   "license": "MIT",
   "author": "Conan Scott",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Conan-Scott/openclaw-fish-audio.git"
+    "url": "git+https://github.com/Conan-Scott/openclaw-fish-audio.git"
   },
   "homepage": "https://github.com/Conan-Scott/openclaw-fish-audio#readme",
   "bugs": {
@@ -16,11 +16,18 @@
   "keywords": [
     "openclaw",
     "openclaw-plugin",
+    "openclaw tts",
     "fish-audio",
     "tts",
     "text-to-speech",
+    "speech",
+    "speech-provider",
+    "voice",
     "voice-cloning",
-    "speech-provider"
+    "telegram tts",
+    "telegram voice",
+    "ai voice",
+    "cloned voice"
   ],
   "openclaw": {
     "extensions": [

@@ -1,6 +1,6 @@
 # Fish Audio Speech — OpenClaw Plugin
 
-[Fish Audio](https://fish.audio) TTS speech provider for [OpenClaw](https://openclaw.ai). High-quality voice cloning and text-to-speech with S2-Pro and S1 models.
+[Fish Audio](https://fish.audio) TTS plugin for [OpenClaw](https://openclaw.ai), with high-quality voice cloning, Telegram/WhatsApp voice replies, and access to 1M+ voices via Fish Audio's voice library. Supports S2-Pro and S1 models.
 
 ## Features
 
