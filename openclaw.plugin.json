@@ -1,7 +1,7 @@
 {
   "id": "fish-audio",
   "name": "Fish Audio Speech",
-  "description": "Fish Audio TTS speech provider for OpenClaw — voice cloning and text-to-speech with S2-Pro and S1 models",
+  "description": "Fish Audio speech provider for OpenClaw with high-quality TTS, voice cloning, configurable voices, and voice-note friendly output for Telegram and WhatsApp.",
   "version": "1.0.0",
   "contracts": {
     "speechProviders": ["fish-audio"]
