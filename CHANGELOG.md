@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.1.0 (2026-04-30)
+
+- Refresh OpenClaw build metadata for SDK 2026.4.27.
+- Add local regression coverage for plugin registration, config resolution, configured-state checks, synthesis request shape, voice-note output, voice pagination, and voice deduplication.
+- Document Fish Audio expressive marker behavior: round-bracket markers are passed through verbatim and confirmed working; square-bracket markers remain unverified.
+- Bundle a `fish-audio-tts` AgentSkill so agents avoid Markdown stage directions in voice text and prefer Fish-compatible round-bracket expressive markers.
+
 ## 1.0.0 (2026-04-04)
 
 Initial release as a standalone community plugin.

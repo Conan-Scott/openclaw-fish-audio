@@ -2,9 +2,11 @@
   "id": "fish-audio",
   "name": "Fish Audio Speech",
   "description": "Fish Audio speech provider for OpenClaw with high-quality TTS, voice cloning, configurable voices, and voice-note friendly output for Telegram and WhatsApp.",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "contracts": {
-    "speechProviders": ["fish-audio"]
+    "speechProviders": [
+      "fish-audio"
+    ]
   },
   "uiHints": {
     "apiKey": {
@@ -45,18 +47,25 @@
       },
       "model": {
         "type": "string",
-        "enum": ["s2-pro", "s1"],
+        "enum": [
+          "s2-pro",
+          "s1"
+        ],
         "description": "TTS model (default: s2-pro)"
       },
       "latency": {
         "type": "string",
-        "enum": ["normal", "balanced", "low"],
+        "enum": [
+          "normal",
+          "balanced",
+          "low"
+        ],
         "description": "Latency mode (default: normal)"
       },
       "speed": {
         "type": "number",
         "minimum": 0.5,
-        "maximum": 2.0,
+        "maximum": 2,
         "description": "Prosody speed (default: 1.0)"
       },
       "temperature": {
@@ -72,5 +81,8 @@
         "description": "Top-p sampling"
       }
     }
-  }
+  },
+  "skills": [
+    "./skills"
+  ]
 }

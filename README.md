@@ -8,6 +8,7 @@
 - **S2-Pro & S1 models** — latest Fish Audio TTS models
 - **Format-aware output** — opus for voice notes (Telegram, WhatsApp), mp3 otherwise
 - **Inline directives** — control voice, speed, model, latency, and sampling per-message
+- **Bundled agent skill** — teaches agents to write Fish-friendly voice text and expressive markers
 - **Voice listing** — browse your cloned voices and popular community voices via `/voice list`
 
 ## Installation
@@ -74,6 +75,12 @@ All directive keys are provider-prefixed to avoid collisions with other speech p
 ```
 
 Short aliases: `fish_voice`, `fish_speed`, `fish_model`, `fish_latency`, `fish_temperature`, `fish_top_p`.
+
+## Expressive Markers
+
+Fish Audio understands natural expressive markers in the text itself, such as `(laughs)` or `(sighs)`. OpenClaw does not parse or transform these markers; the plugin passes text verbatim to Fish Audio's `/v1/tts` API. Round-bracket markers are confirmed working. Square-bracket marker syntax is unverified.
+
+For agent-authored voice messages, avoid Markdown stage directions such as `*laughs*`; some TTS paths may read the asterisks literally. This package includes a `fish-audio-tts` AgentSkill so OpenClaw agents can learn the preferred plain-text style automatically.
 
 ## Models
 
