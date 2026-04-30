@@ -1,0 +1,41 @@
+name: Publish to ClawHub
+
+on:
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: Git ref to publish
+        required: false
+        default: v1.1.0
+      changelog:
+        description: Release changelog
+        required: false
+        default: "Release 1.1.0: refresh OpenClaw SDK metadata to 2026.4.27, add local regression coverage, document Fish Audio expressive markers, and bundle the fish-audio-tts AgentSkill."
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout release source
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.ref }}
+          fetch-depth: 0
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Publish package to ClawHub with provenance
+        run: |
+          npx -y clawhub@latest package publish . \
+            --source-repo Conan-Scott/openclaw-fish-audio \
+            --source-commit "$(git rev-parse HEAD)" \
+            --source-ref "${{ inputs.ref }}" \
+            --changelog "${{ inputs.changelog }}" \
+            --json
