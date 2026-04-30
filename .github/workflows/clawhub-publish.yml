@@ -19,6 +19,9 @@ permissions:
 jobs:
   publish:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
     steps:
       - name: Checkout release source
         uses: actions/checkout@v4
@@ -30,6 +33,11 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 22
+
+      - name: Check OIDC availability
+        run: |
+          test -n "$ACTIONS_ID_TOKEN_REQUEST_URL"
+          test -n "$ACTIONS_ID_TOKEN_REQUEST_TOKEN"
 
       - name: Publish package to ClawHub with provenance
         run: |
