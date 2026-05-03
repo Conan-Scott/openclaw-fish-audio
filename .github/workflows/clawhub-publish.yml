@@ -6,11 +6,11 @@ on:
       ref:
         description: Git ref to publish
         required: false
-        default: v1.1.1
+        default: v1.1.2
       changelog:
         description: Release changelog
         required: false
-        default: "Release 1.1.1: ship compiled runtime output, declare runtimeExtensions, and enable startup activation for OpenClaw 2026.5.3-beta.2 packaged installs."
+        default: "Release 1.1.2: keep Fish Audio lazy with activation.onStartup=false while retaining compiled runtime output for OpenClaw 2026.5.3 packaged installs."
 
 permissions:
   contents: read

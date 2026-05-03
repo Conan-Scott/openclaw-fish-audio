@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.1.2 (2026-05-04)
+
+- Set `activation.onStartup: false` so Fish Audio stays lazy and relies on OpenClaw 2026.5.3 capability-provider fallback rather than startup-loading every gateway boot.
+
 ## 1.1.1 (2026-05-04)
 
 - Ship compiled `dist/*.js` runtime output and use the compiled entrypoint for packaged installs on OpenClaw 2026.5.3-beta.2.
