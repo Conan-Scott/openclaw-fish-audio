@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.1.1 (2026-05-04)
+
+- Ship compiled `dist/*.js` runtime output and declare `openclaw.runtimeExtensions` so packaged installs work on OpenClaw 2026.5.3-beta.2.
+- Set `activation.onStartup: true` explicitly for startup registration of the Fish Audio speech provider.
+- Refresh OpenClaw build metadata for SDK 2026.5.3-beta.2.
+
 ## 1.1.0 (2026-04-30)
 
 - Refresh OpenClaw build metadata for SDK 2026.4.27.

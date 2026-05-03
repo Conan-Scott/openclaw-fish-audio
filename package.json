@@ -1,6 +1,6 @@
 {
   "name": "@conan-scott/openclaw-fish-audio",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Fish Audio speech provider for OpenClaw with high-quality TTS, voice cloning, configurable voices, and voice-note friendly output for Telegram and WhatsApp.",
   "type": "module",
   "license": "MIT",
@@ -42,9 +42,12 @@
       "minGatewayVersion": "2026.3.31"
     },
     "build": {
-      "openclawVersion": "2026.4.27",
-      "pluginSdkVersion": "2026.4.27"
-    }
+      "openclawVersion": "2026.5.3-beta.2",
+      "pluginSdkVersion": "2026.5.3-beta.2"
+    },
+    "runtimeExtensions": [
+      "./dist/index.js"
+    ]
   },
   "files": [
     "index.ts",
@@ -54,13 +57,17 @@
     "skills",
     "README.md",
     "LICENSE",
-    "CHANGELOG.md"
+    "CHANGELOG.md",
+    "dist"
   ],
   "devDependencies": {
-    "openclaw": "^2026.4.27",
-    "vitest": "^3.1.0"
+    "openclaw": "^2026.5.3-beta.2",
+    "vitest": "^3.1.0",
+    "esbuild": "^0.28.0"
   },
   "scripts": {
-    "test": "vitest run"
+    "test": "vitest run",
+    "build": "esbuild index.ts speech-provider.ts tts.ts --bundle=false --platform=node --format=esm --target=node22 --outdir=dist --out-extension:.js=.js",
+    "prepack": "npm run build"
   }
 }
