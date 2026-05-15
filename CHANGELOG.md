@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.1.5 (2026-05-15)
+
+- Republish the corrected Fish Audio package after registry publish-token setup, keeping the structured skill, setup auth metadata, HTTPS baseUrl hardening, and ClawHub static-scan false-positive adjustment from 1.1.4.
+
 ## 1.1.4 (2026-05-15)
 
 - Publish through ClawHub's ClawPack npm artifact path instead of the legacy source-zip path.

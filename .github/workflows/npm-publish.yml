@@ -6,7 +6,7 @@ on:
       ref:
         description: Git ref to publish
         required: false
-        default: v1.1.4
+        default: v1.1.5
 
 permissions:
   contents: read
