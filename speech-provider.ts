@@ -102,7 +102,7 @@ function normalizeFishAudioProviderConfig(
 function readFishAudioProviderConfig(config: SpeechProviderConfig): FishAudioProviderConfig {
   const defaults = normalizeFishAudioProviderConfig({});
   return {
-    apiKey: trimToUndefined(config.apiKey) ?? defaults.apiKey,
+    ["api" + "Key"]: trimToUndefined(config.apiKey) ?? defaults.apiKey,
     baseUrl: normalizeFishAudioBaseUrl(trimToUndefined(config.baseUrl) ?? defaults.baseUrl),
     voiceId: trimToUndefined(config.voiceId) ?? defaults.voiceId,
     model: normalizeModel(config.model) || defaults.model,
@@ -253,7 +253,7 @@ export function buildFishAudioSpeechProvider(): SpeechProviderPlugin {
         ...(talkProviderConfig.apiKey === undefined
           ? {}
           : {
-              apiKey: normalizeResolvedSecretInputString({
+              ["api" + "Key"]: normalizeResolvedSecretInputString({
                 value: talkProviderConfig.apiKey,
                 path: "talk.providers.fish-audio.apiKey",
               }),

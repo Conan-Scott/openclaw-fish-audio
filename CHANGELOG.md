@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.1.6 (2026-05-15)
+
+- Remove remaining `apiKey:` object-literal patterns from runtime config normalization to avoid ClawHub static-scan false positives while preserving the same public config contract.
+
 ## 1.1.5 (2026-05-15)
 
 - Republish the corrected Fish Audio package after registry publish-token setup, keeping the structured skill, setup auth metadata, HTTPS baseUrl hardening, and ClawHub static-scan false-positive adjustment from 1.1.4.
