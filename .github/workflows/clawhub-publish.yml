@@ -1,91 +1,26 @@
 name: Publish to ClawHub
 
 on:
+  pull_request:
   workflow_dispatch:
-    inputs:
-      ref:
-        description: Git ref to publish
-        required: false
-        default: v1.1.3
-      changelog:
-        description: Release changelog
-        required: false
-        default: "Release 1.1.3: structured AgentSkill, setup auth metadata, HTTPS baseUrl hardening, and refreshed OpenClaw 2026.5.12 SDK metadata."
-
-permissions:
-  contents: read
-  id-token: write
+  push:
+    tags:
+      - "v*"
 
 jobs:
+  dry-run:
+    if: github.event_name == 'pull_request'
+    uses: openclaw/clawhub/.github/workflows/package-publish.yml@v0.12.0
+    with:
+      dry_run: true
+
   publish:
-    runs-on: ubuntu-latest
+    if: github.event_name == 'workflow_dispatch' || startsWith(github.ref, 'refs/tags/')
     permissions:
       contents: read
       id-token: write
-    steps:
-      - name: Checkout release source
-        uses: actions/checkout@v4
-        with:
-          ref: ${{ inputs.ref }}
-          fetch-depth: 0
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 22
-
-      - name: Mint ClawHub trusted-publisher token
-        run: |
-          node <<'NODE'
-          const fs = require('node:fs');
-          const os = require('node:os');
-          const path = require('node:path');
-          const pkg = require('./package.json');
-
-          async function main() {
-            const requestUrl = process.env.ACTIONS_ID_TOKEN_REQUEST_URL;
-            const requestToken = process.env.ACTIONS_ID_TOKEN_REQUEST_TOKEN;
-            if (!requestUrl || !requestToken) throw new Error('GitHub Actions OIDC is unavailable');
-
-            const oidcUrl = new URL(requestUrl);
-            oidcUrl.searchParams.set('audience', 'clawhub');
-            const oidcResponse = await fetch(oidcUrl, {
-              headers: { Authorization: `Bearer ${requestToken}`, Accept: 'application/json' },
-            });
-            const oidcText = await oidcResponse.text();
-            if (!oidcResponse.ok) throw new Error(`OIDC request failed ${oidcResponse.status}: ${oidcText}`);
-            const githubOidcToken = JSON.parse(oidcText).value;
-
-            const mintResponse = await fetch('https://clawhub.ai/api/v1/publish/token/mint', {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-              body: JSON.stringify({
-                packageName: pkg.name,
-                version: pkg.version,
-                githubOidcToken,
-              }),
-            });
-            const mintText = await mintResponse.text();
-            if (!mintResponse.ok) throw new Error(`ClawHub token mint failed ${mintResponse.status}: ${mintText}`);
-            const { token } = JSON.parse(mintText);
-            if (!token) throw new Error('ClawHub token mint did not return a token');
-
-            const configDir = path.join(os.homedir(), '.config', 'clawhub');
-            fs.mkdirSync(configDir, { recursive: true, mode: 0o700 });
-            fs.writeFileSync(path.join(configDir, 'config.json'), JSON.stringify({ token }, null, 2) + '\n', { mode: 0o600 });
-            console.log(`Minted ClawHub trusted-publisher token for ${pkg.name}@${pkg.version}`);
-          }
-          main().catch((error) => {
-            console.error(error.message || error);
-            process.exit(1);
-          });
-          NODE
-
-      - name: Publish package to ClawHub with provenance
-        run: |
-          npx -y clawhub@latest package publish . \
-            --source-repo Conan-Scott/openclaw-fish-audio \
-            --source-commit "$(git rev-parse HEAD)" \
-            --source-ref "${{ inputs.ref }}" \
-            --changelog "${{ inputs.changelog }}" \
-            --json
+    uses: openclaw/clawhub/.github/workflows/package-publish.yml@v0.12.0
+    with:
+      dry_run: false
+    secrets:
+      clawhub_token: ${{ secrets.CLAWHUB_TOKEN }}
