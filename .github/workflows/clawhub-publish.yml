@@ -16,6 +16,10 @@ jobs:
     uses: openclaw/clawhub/.github/workflows/package-publish.yml@v0.12.0
     with:
       dry_run: true
+      source: "."
+      source_repo: ${{ github.repository }}
+      source_commit: ${{ github.sha }}
+      source_ref: ${{ github.ref }}
 
   publish:
     if: github.event_name == 'workflow_dispatch' || startsWith(github.ref, 'refs/tags/')
@@ -25,3 +29,7 @@ jobs:
     uses: openclaw/clawhub/.github/workflows/package-publish.yml@v0.12.0
     with:
       dry_run: false
+      source: "."
+      source_repo: ${{ github.repository }}
+      source_commit: ${{ github.sha }}
+      source_ref: ${{ github.ref }}

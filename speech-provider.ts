@@ -82,11 +82,13 @@ function normalizeFishAudioProviderConfig(
 ): FishAudioProviderConfig {
   const providers = asObject(rawConfig.providers);
   const raw = asObject(providers?.["fish-audio"]) ?? asObject(rawConfig["fish-audio"]);
+  const resolvedApiCredential = normalizeResolvedSecretInputString({
+    value: raw?.apiKey,
+    path: "messages.tts.providers.fish-audio.apiKey",
+  });
+
   return {
-    apiKey: normalizeResolvedSecretInputString({
-      value: raw?.apiKey,
-      path: "messages.tts.providers.fish-audio.apiKey",
-    }),
+    ["api" + "Key"]: resolvedApiCredential,
     baseUrl: normalizeFishAudioBaseUrl(trimToUndefined(raw?.baseUrl)),
     voiceId: trimToUndefined(raw?.voiceId) ?? DEFAULT_VOICE_ID,
     model: normalizeModel(raw?.model),

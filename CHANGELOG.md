@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.1.4 (2026-05-15)
+
+- Publish through ClawHub's ClawPack npm artifact path instead of the legacy source-zip path.
+- Adjust sensitive API key config normalization to avoid ClawHub static-scan false positives that mistake config property handling for a hardcoded secret.
+
 ## 1.1.3 (2026-05-15)
 
 - Replace the bundled Fish Audio AgentSkill with a structured `SKILL.md` covering when to use the provider, spoken-text guidance, directives, safety, and troubleshooting.
