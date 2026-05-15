@@ -23,11 +23,18 @@ Then restart OpenClaw.
 
 1. Sign up at [fish.audio](https://fish.audio)
 2. Go to **Account** → **API Keys** → **Create API Key**
-3. Copy the key for configuration below
+3. Create a revocable key with the minimum access you need
+4. Copy the key for configuration below
 
 ## Configuration
 
-Add to your `openclaw.json`:
+Prefer setting the API key as an environment variable or secret:
+
+```bash
+FISH_AUDIO_API_KEY=your-fish-audio-api-key
+```
+
+Then add the provider configuration to your `openclaw.json`:
 
 ```json5
 {
@@ -36,7 +43,6 @@ Add to your `openclaw.json`:
       provider: "fish-audio",
       providers: {
         "fish-audio": {
-          apiKey: "your-fish-audio-api-key",
           voiceId: "reference-id-of-your-voice",
           model: "s2-pro",       // s2-pro (default) | s1
           latency: "normal",     // normal (default) | balanced | low
@@ -50,7 +56,9 @@ Add to your `openclaw.json`:
 }
 ```
 
-Alternatively, set the `FISH_AUDIO_API_KEY` environment variable and configure only `voiceId`.
+You can also set `apiKey` directly under `messages.tts.providers.fish-audio`, but secret-backed configuration is safer for shared systems and published examples.
+
+Only set `baseUrl` for a Fish Audio-compatible endpoint you trust. The plugin sends the Fish Audio API key to that endpoint; custom URLs must use HTTPS except for localhost development.
 
 ## Finding a Voice
 
@@ -60,6 +68,8 @@ Use the `/voice list` command in OpenClaw to browse available voices. The plugin
 2. **Popular community voices** (top-ranked by score) as a fallback for new users
 
 You can also browse voices at [fish.audio](https://fish.audio) and copy the voice ID from the URL.
+
+Use cloned, trained, or community voices only when you have the rights, consent, and authorization to use that voice.
 
 ## Inline Directives
 

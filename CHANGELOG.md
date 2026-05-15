@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.1.3 (2026-05-15)
+
+- Replace the bundled Fish Audio AgentSkill with a structured `SKILL.md` covering when to use the provider, spoken-text guidance, directives, safety, and troubleshooting.
+- Add setup/auth metadata for `FISH_AUDIO_API_KEY` while keeping existing sensitive API key UI hints.
+- Harden custom Fish Audio `baseUrl` handling by requiring HTTPS for non-local endpoints and rejecting embedded credentials.
+- Refresh OpenClaw SDK build metadata to 2026.5.12 and update documentation to prefer revocable, secret-backed API keys and consent-based voice use.
+
 ## 1.1.2 (2026-05-04)
 
 - Set `activation.onStartup: false` so Fish Audio stays lazy and relies on OpenClaw 2026.5.3 capability-provider fallback rather than startup-loading every gateway boot.

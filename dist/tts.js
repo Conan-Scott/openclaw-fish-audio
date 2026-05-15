@@ -4,7 +4,20 @@ function normalizeFishAudioBaseUrl(baseUrl) {
   if (!trimmed) {
     return DEFAULT_FISH_AUDIO_BASE_URL;
   }
-  return trimmed.replace(/\/+$/, "");
+  let url;
+  try {
+    url = new URL(trimmed);
+  } catch {
+    throw new Error("Fish Audio baseUrl must be an absolute HTTP(S) URL");
+  }
+  if (url.username || url.password) {
+    throw new Error("Fish Audio baseUrl must not include credentials");
+  }
+  const isLocalHttp = url.protocol === "http:" && (url.hostname === "localhost" || url.hostname === "127.0.0.1" || url.hostname === "::1");
+  if (url.protocol !== "https:" && !isLocalHttp) {
+    throw new Error("Fish Audio baseUrl must use HTTPS unless it points to localhost");
+  }
+  return url.toString().replace(/\/+$/, "");
 }
 async function fishAudioTTS(params) {
   const {

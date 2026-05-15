@@ -1,6 +1,7 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import pluginEntry from "./index.js";
 import { buildFishAudioSpeechProvider, isValidFishAudioVoiceId } from "./speech-provider.js";
+import { normalizeFishAudioBaseUrl } from "./tts.js";
 
 const validVoiceId = "8a2d42279389471993460b85340235c5";
 const audioBytes = new Uint8Array([1, 2, 3, 4]);
@@ -140,6 +141,29 @@ describe("fish-audio speech provider", () => {
       expect(
         provider.isConfigured({ providerConfig: { apiKey: "key", voiceId: validVoiceId } }),
       ).toBe(true);
+    });
+
+    it("normalizes trusted Fish Audio base URLs", () => {
+      expect(normalizeFishAudioBaseUrl()).toBe("https://api.fish.audio");
+      expect(normalizeFishAudioBaseUrl(" https://fish.example/// ")).toBe("https://fish.example");
+      expect(normalizeFishAudioBaseUrl("http://localhost:3000///")).toBe(
+        "http://localhost:3000",
+      );
+      expect(normalizeFishAudioBaseUrl("http://127.0.0.1:3000/")).toBe(
+        "http://127.0.0.1:3000",
+      );
+    });
+
+    it("rejects custom base URLs that could expose the Fish Audio API key", () => {
+      expect(() => normalizeFishAudioBaseUrl("http://fish.example")).toThrow(
+        /must use HTTPS/,
+      );
+      expect(() => normalizeFishAudioBaseUrl("https://user:pass@fish.example")).toThrow(
+        /must not include credentials/,
+      );
+      expect(() => normalizeFishAudioBaseUrl("fish.example")).toThrow(
+        /absolute HTTP\(S\) URL/,
+      );
     });
   });
 
